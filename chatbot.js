@@ -16,7 +16,9 @@ chat.innerHTML = `
     <div class="chat-box">
         <div class="chat-box-header"></div>
         <div class="chat-box-body"></div>
-        <div class="chat-box-text"></div>
+        <div class="chat-box-text">
+            <input class="input_chat" type="text" placeholder="Pose ta question à PerfectBot"/>
+        </div>
     </div>
 `
 
