@@ -1,0 +1,9 @@
+.chatbot {
+    width: 200px;
+    height: 100px;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    background-color: #fff;
+    color: black;
+}
