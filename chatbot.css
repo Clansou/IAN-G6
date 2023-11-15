@@ -19,3 +19,12 @@
     height: 40px;
     fill: #fff;
   }
+.chat{
+    width: 200px;
+    height: 200px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: aquamarine;
+    display:none;
+}
