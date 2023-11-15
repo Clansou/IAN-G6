@@ -13,6 +13,7 @@ function sendMessage() {
 // Créez un élément div
 var newDiv = document.createElement("div")
 var chat = document.createElement("div")
+const logo = chrome.runtime.getURL('Logo.png');
 
 newDiv.classList.add("chatbot")
 chat.classList.add("chat")
@@ -25,7 +26,13 @@ newDiv.innerHTML = `
 
 chat.innerHTML = `
 <div class="chat-box">
-    <div class="chat-box-header">Chat Extension</div>
+    <div class="chat-box-header"><img src="${logo}" alt="Logo de l'extension PerfectBot" class="chat-logo">
+        <div class="close-button">
+        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 352 512">
+            <path fill="currentColor" d="M265.7 256l85.7-85.7c9.4-9.4 9.4-24.6 0-34s-24.6-9.4-34 0L224 221.7 138.3 136c-9.4-9.4-24.6-9.4-34 0s-9.4 24.6 0 34L190.3 256 104 341.7c-9.4 9.4-9.4 24.6 0 34s24.6 9.4 34 0L224 290.3 309.7 375c9.4 9.4 24.6 9.4 34 0s9.4-24.6 0-34L265.7 256z"/>
+        </svg>
+    </div>
+    </div>
     <div class="chat-box-body" id="chatMessages"></div>
     <div class="chat-box-text">
         <input class="input_chat" id="input_chat" type="text" placeholder="Type your message"/>
@@ -70,10 +77,33 @@ sendButton.addEventListener("click", function () {
         messageDiv.appendChild(messageP);
         messageDiv.appendChild(messageBut);
         chatMessages.appendChild(messageDiv);
+
+        var messageDivbot = document.createElement('div');
+        var messagePbot = document.createElement('p');
+        var messageButbot = document.createElement('button');
+        messagePbot.textContent = "je suis en cours de développement";
+        messageButbot.value = "je suis en cours de développement";
+        messageButbot.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>`;
+        messageButbot.addEventListener("click",function(){
+                const utterThis = new SpeechSynthesisUtterance(messageButbot.value);
+                utterThis.pitch = 1;
+                utterThis.rate = 1;
+                synth.speak(utterThis);
+              
+        })
+        messageDivbot.classList.add("chatbot-message");
+        messageDivbot.appendChild(messagePbot);
+        messageDivbot.appendChild(messageButbot);
+        chatMessages.appendChild(messageDivbot);
+        
         inputElement.value = '';
     }
 })
-
+var closeButton = chat.querySelector('.close-button')
+closeButton.addEventListener("click", function () {
+    newDiv.style = "display : flex;"
+    chat.style = "display : none;"
+})
 
 const selectedOption = "Microsoft Paul - French (France)"
 const synth = window.speechSynthesis;

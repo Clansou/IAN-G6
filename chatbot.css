@@ -46,7 +46,17 @@ background-color: #36b2ec;
 color: #fff;
 padding: 10px;
 text-align: center;
+display: flex;
 }
+.chat-box-header .close-icon {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+    cursor: pointer;
+  }
+  .chat-box-header .close-icon svg{
+    font-size: 36px;
+  }
 
 .chat-box-body {
 flex-grow: 1;
@@ -93,4 +103,43 @@ cursor: pointer;
 .messageDiv{
     display: flex;
     gap: 12px;
+    padding-right: 20px;
+    margin-top: 16px;
 }
+
+.chat-logo {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+  .messageDiv p{
+    background-color: #36b2ec;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px 0;
+    width: auto;
+    word-wrap: break-word;
+    max-width: 200px; /* Ajustez selon vos besoins */
+    align-self: flex-end; /* Pour aligner les messages de l'utilisateur à droite */
+  }
+.chatbot-message{
+    padding-left: 20px;
+    gap: 12px;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 16px;
+}
+  
+  /* Style pour les messages du chatbot (si nécessaire) */
+  .chatbot-message p{
+    background-color: #36b2ec;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px 0;
+    width: auto;
+    word-wrap: break-word;
+    max-width: 200px; /* Ajustez selon vos besoins */
+    align-self: flex-end; /* Pour aligner les messages du chatbot à gauche */
+  }
