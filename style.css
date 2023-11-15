@@ -75,3 +75,29 @@ body, html {
   .controls button {
     padding: 10px;
   }
+
+  .chat-bubble {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #F4F4F4;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .chat-content {
+    color: #333333;
+    font-size: 14px;
+  }
+  
+  /* Style supplémentaire pour l'effet de bulle */
+  .chat-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 15px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #F4F4F4 transparent;
+  }
