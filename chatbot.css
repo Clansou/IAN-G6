@@ -12,19 +12,46 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .chatbot svg {
+}
+
+.chatbot svg {
     width: 40px;
     height: 40px;
     fill: #fff;
-  }
-.chat{
-    width: 200px;
-    height: 200px;
+}
+
+.chat {
+    width: 300px;
+    height: 500px;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: aquamarine;
-    display:none;
+    display: none;
+}
+
+.chat-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-box-header {
+    width: 100%;
+    height: 50px;
+    background-color: #36b2ec;
+    padding: 0 10px;
+}
+
+.chat-box-body {
+    flex-grow: 1;
+    background-color: blue;
+    width: 100%;
+}
+
+.chat-box-text {
+    width: 100%;
+    height: 50px;
+    background-color: #36b2ec;
+    padding: 0 10px;
 }
