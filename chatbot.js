@@ -1,4 +1,15 @@
+function sendMessage() {
+    var inputElement = document.querySelector('.input_chat');
+    var message = inputElement.value.trim();
 
+    if (message !== '') {
+        var chatMessages = document.getElementById('chatMessages');
+        var messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        chatMessages.appendChild(messageDiv);
+        inputElement.value = '';
+    }
+}
 // Créez un élément div
 var newDiv = document.createElement("div")
 var chat = document.createElement("div")
@@ -13,19 +24,35 @@ newDiv.innerHTML = `
 `
 
 chat.innerHTML = `
-    <div class="chat-box">
-        <div class="chat-box-header"></div>
-        <div class="chat-box-body"></div>
-        <div class="chat-box-text">
-            <input class="input_chat" type="text" placeholder="Pose ta question à PerfectBot"/>
-        </div>
+<div class="chat-box">
+    <div class="chat-box-header">Chat Extension</div>
+    <div class="chat-box-body" id="chatMessages"></div>
+    <div class="chat-box-text">
+        <input class="input_chat" type="text" placeholder="Type your message"/>
+        <button class="send-button">Send</button>
     </div>
+</div>
 `
 
 // Ajoutez le nouvel élément à la fin du corps de la page
-newDiv.addEventListener("click",function(){
+newDiv.addEventListener("click", function () {
     newDiv.style = "display : none;"
     chat.style = "display : flex;"
 })
+
+var sendButton = chat.querySelector('.send-button');
+sendButton.addEventListener("click", function () {
+    var inputElement = document.querySelector('.input_chat');
+    var message = inputElement.value.trim();
+
+    if (message !== '') {
+        var chatMessages = document.getElementById('chatMessages');
+        var messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        chatMessages.appendChild(messageDiv);
+        inputElement.value = '';
+    }
+})
 document.body.appendChild(newDiv)
 document.body.appendChild(chat)
+
