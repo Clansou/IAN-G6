@@ -28,8 +28,14 @@ chat.innerHTML = `
     <div class="chat-box-header">Chat Extension</div>
     <div class="chat-box-body" id="chatMessages"></div>
     <div class="chat-box-text">
-        <input class="input_chat" type="text" placeholder="Type your message"/>
-        <button class="send-button">Send</button>
+        <input class="input_chat" id="input_chat" type="text" placeholder="Type your message"/>
+        <button id="btn-play" type="button" class="audio" title="Start">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M192 0C139 0 96 43 96 96V256c0 53 43 96 96 96s96-43 96-96V96c0-53-43-96-96-96zM64 216c0-13.3-10.7-24-24-24s-24 10.7-24 24v40c0 89.1 66.2 162.7 152 174.4V464H120c-13.3 0-24 10.7-24 24s10.7 24 24 24h72 72c13.3 0 24-10.7 24-24s-10.7-24-24-24H216V430.4c85.8-11.7 152-85.3 152-174.4V216c0-13.3-10.7-24-24-24s-24 10.7-24 24v40c0 70.7-57.3 128-128 128s-128-57.3-128-128V216z"/></svg>
+        </button>
+        <button id="btn-pause" type="button" class="audio"  hidden="true" title="Pause">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"/></svg>
+        </button>
+        <button class="send-button"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg></button>
     </div>
 </div>
 `
@@ -74,3 +80,107 @@ const synth = window.speechSynthesis;
 document.body.appendChild(newDiv)
 document.body.appendChild(chat)
 
+var audioButtonPlay = document.getElementById("btn-play");
+var audioButtonPause = document.getElementById("btn-pause");
+audioButtonPlay.addEventListener("click", function () {
+    tspSocket.grantPermission('fr-FR');
+            document.getElementById('btn-play').hidden = true;
+            document.getElementById('btn-pause').hidden = false;
+        })
+        console.log("salut");
+audioButtonPause.addEventListener("click", function () {        
+    tspSocket.stopRecording();
+
+    document.getElementById('btn-play').hidden = false;
+    document.getElementById('btn-pause').hidden = true;
+})
+
+var tspSocket = (function () {
+    return {
+        grantPermission: function (lang) {
+            grantPermissionF(lang);
+        },
+        stopRecording: function () {
+            stopRecordingF();
+        },
+        sendText: function () {
+            sendRecording();
+        }
+    }
+})(tspSocket || {})
+
+var recognizing;
+
+function reset() {
+    recognizing = false;
+    speech.start();
+}
+
+var speech = new webkitSpeechRecognition() || speechRecognition();
+speech.continuous = false;
+speech.interimResults = true;
+
+function grantPermissionF(lang) {
+    try {
+        speech.lang = lang;
+        speech.start();
+    } catch (error) {
+        reset();
+    }
+};
+
+function stopRecordingF() {
+    recognizing = false;
+    speech.stop();
+};
+
+function sendRecording() {
+    // send 'to_send_transcript' to API/ Backend
+    to_send_transcript = '';
+}
+
+speech.onstart = function () {
+    // When recognition begins
+    recognizing = true;
+};
+
+var to_send_transcript = '';
+speech.onresult = function (event) {
+
+    // When recognition produces result
+    var interim_transcript = '';
+    var final_transcript = '';
+
+    // main for loop for final and interim results
+    for (var i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+            final_transcript += event.results[i][0].transcript;
+            document.getElementById('input_chat').value = '';
+            to_send_transcript += ' ' + final_transcript;
+
+            if (document.getElementById('input_chat').value.length >= 300) {
+                document.getElementById('input_chat').value = final_transcript + ' ';
+                
+                sendRecording(final_transcript); // send stream of speech to API/ backend (optional)
+            }
+            else {
+                document.getElementById('input_chat').value += final_transcript + ' ';
+            }
+        } else {
+            interim_transcript += event.results[i][0].transcript;
+            document.getElementById('input_chat').value = interim_transcript
+        }
+    }
+};
+
+speech.onerror = function (event) {
+    // Either 'No-speech' or 'Network connection error'
+    speech.stop();
+};
+
+speech.onend = function () {
+    // When recognition ends
+    if (recognizing) {
+        reset();
+    }
+};

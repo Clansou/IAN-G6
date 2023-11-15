@@ -38,6 +38,7 @@ overflow: hidden;
 display: flex;
 flex-direction: column;
 height: 100%;
+width: 100%;
 }
 
 .chat-box-header {
@@ -77,6 +78,16 @@ color: #36b2ec;
 border: 1px solid #36b2ec;
 border-radius: 5px;
 cursor: pointer;
+}
+
+.audio{
+    width: 20%;
+    margin-left: 10px;
+    padding: 8px;
+    background-color: #fff;
+    color: #36b2ec;
+    border: 1px solid #36b2ec;
+    border-radius: 5px;
 }
 
 .messageDiv{
