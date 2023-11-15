@@ -78,3 +78,8 @@ border: 1px solid #36b2ec;
 border-radius: 5px;
 cursor: pointer;
 }
+
+.messageDiv{
+    display: flex;
+    gap: 12px;
+}
