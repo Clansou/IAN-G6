@@ -133,8 +133,8 @@ cursor: pointer;
   
   /* Style pour les messages du chatbot (si nécessaire) */
   .chatbot-message p{
-    background-color: #36b2ec;
-    color: #fff;
+    background-color: #ffffff;
+    color: #0f0f0f;
     border-radius: 10px;
     padding: 10px;
     margin: 5px 0;
@@ -143,3 +143,27 @@ cursor: pointer;
     max-width: 200px; /* Ajustez selon vos besoins */
     align-self: flex-end; /* Pour aligner les messages du chatbot à gauche */
   }
+
+  .messageDiv button {
+    margin-top: 10px;
+    background-color: #36b2ec; /* Fond bleu */
+    width: 40px;
+    height: 40px;
+    color: #fff; /* Texte blanc */
+    border: none; /* Pas de bordure */
+    border-radius: 50%; /* Bordure arrondie pour créer un bouton rond */
+    padding: 8px; /* Espace intérieur du bouton */
+    cursor: pointer; /* Curseur pointeur au survol */
+}
+
+.chatbot-message button {
+    margin-top: 10px;
+    background-color: #36b2ec; /* Fond bleu */
+    width: 40px;
+    height: 40px;
+    color: #fff; /* Texte blanc */
+    border: none; /* Pas de bordure */
+    border-radius: 50%; /* Bordure arrondie pour créer un bouton rond */
+    padding: 8px; /* Espace intérieur du bouton */
+    cursor: pointer; /* Curseur pointeur au survol */
+}
